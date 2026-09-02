@@ -4,6 +4,8 @@
 
 Scaffold inspected and committed without adding feature code.
 
+Re-verified in the current worktree after the Task 1 commit.
+
 The requested Next.js App Router/TypeScript scaffold files are present, and `package.json` contains the required scripts and dependencies (`docx`, `@react-pdf/renderer`, Vitest, Testing Library, and Playwright).
 
 ## Check
