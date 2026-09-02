@@ -13,7 +13,7 @@ Create a browser-based Next.js prototype that lets a user enter key Mutual Non-D
 - A single Mutual NDA creation flow.
 - Form fields for the agreement and both parties.
 - Client-side form state and live preview updates.
-- Client-side Markdown download.
+- Client-side Markdown, DOCX, and PDF downloads.
 - Common Paper source attribution and CC BY 4.0 notice.
 - Responsive, keyboard-accessible presentation suitable for a first-time user.
 - Automated checks plus a browser smoke test for the principal user journey.
@@ -22,7 +22,6 @@ Create a browser-based Next.js prototype that lets a user enter key Mutual Non-D
 
 - Backend APIs, persistence, authentication, or user accounts.
 - AI generation or legal advice.
-- DOCX or PDF export.
 - Electronic signatures.
 - Multiple agreement types or a general template engine.
 - Editing the legal meaning of the Common Paper source text.
@@ -36,7 +35,7 @@ The page presents a clear two-part workspace:
 
 The form should have sensible defaults for the effective date, purpose, one-year MNDA term, and one-year confidentiality term. Required fields must be visibly marked and validated before download. Validation messages should identify the field that needs attention without losing any entered values.
 
-The preview should update as the user types or changes an option. Empty values should be represented with an obvious placeholder in the preview rather than silently disappearing. The download action should produce a `.md` file locally in the browser, with a stable filename such as `mutual-nda-<party-1>-<party-2>.md` after safe filename normalization.
+The preview should update as the user types or changes an option. Empty values should be represented with an obvious placeholder in the preview rather than silently disappearing. The export actions should produce `.md`, `.docx`, and `.pdf` files locally in the browser, with stable filenames such as `mutual-nda-<party-1>-<party-2>.<extension>` after safe filename normalization.
 
 The UI must state that the output is a draft requiring appropriate human/legal review. The Common Paper attribution and CC BY 4.0 link must remain visible in the preview and be included in the downloaded document.
 
@@ -74,7 +73,10 @@ Keep source agreement text and field interpolation separate from UI components. 
 - `frontend/src/components/mutual-nda-form.tsx` — labeled inputs and validation display.
 - `frontend/src/components/mutual-nda-preview.tsx` — document preview and attribution.
 - `frontend/src/data/mutual-nda.ts` — typed defaults, field metadata, source agreement content, and rendering function.
-- `frontend/src/lib/download.ts` — browser-only Blob/download helper and safe filename normalization.
+- `frontend/src/lib/download.ts` — browser-only download helper and safe filename normalization.
+- `frontend/src/lib/export-markdown.ts` — Markdown serialization.
+- `frontend/src/lib/export-docx.ts` — DOCX serialization from the shared agreement model.
+- `frontend/src/lib/export-pdf.tsx` — PDF document rendering from the shared agreement model.
 - `frontend/src/app/globals.css` — visual system, responsive layout, form controls, document styling, and print-friendly rules.
 - `frontend/tests/` — focused tests for rendering, validation, filename normalization, and download behavior where practical.
 
@@ -89,7 +91,7 @@ form input → typed MutualNdaFormData → validation
                               ↘
                        rendered agreement
                               ↘
-                     local Markdown download
+                 local file exports
 ```
 
 The application is intentionally local-only for this prototype. No user-entered agreement information should leave the browser or be sent to an API.
@@ -98,7 +100,7 @@ The application is intentionally local-only for this prototype. No user-entered 
 
 Use the current `create-next-app` recommended setup: TypeScript, ESLint, Tailwind CSS, App Router, and Turbopack for development. The application should use React client components only where interactive state is needed; static layout and metadata can remain server-rendered.
 
-Use standard Web APIs for download: create a `Blob` from the rendered Markdown, create an object URL, trigger an `<a download>` action, and revoke the object URL afterward. This avoids introducing a server endpoint for a local-only operation.
+Use standard Web APIs for download: create a `Blob` from each generated document, create an object URL, trigger an `<a download>` action, and revoke the object URL afterward. Generate Markdown directly, generate DOCX with a browser-compatible OOXML document library, and generate PDF with a browser-compatible PDF renderer. All three formats must consume the same completed agreement model so their legal content stays aligned.
 
 Use semantic HTML elements, explicit labels, fieldset/legend groupings for party and term options, visible focus states, sufficient color contrast, and a layout that remains usable on narrow screens. Do not rely on color alone for validation or legal-review warnings.
 
@@ -107,8 +109,9 @@ Use semantic HTML elements, explicit labels, fieldset/legend groupings for party
 - Block download when required fields are empty or invalid.
 - Keep form values intact when validation fails.
 - Show a clear, non-technical validation message beside the relevant field.
-- Disable or guard download while a download is being triggered to prevent duplicate clicks.
+- Disable or guard export actions while a file is being generated to prevent duplicate clicks.
 - Normalize party names before using them in a filename; fall back to `mutual-nda-draft.md` when names are empty.
+- Use matching `.docx` and `.pdf` fallback filenames for the same draft.
 - Escape or safely render user-entered values so they cannot inject UI markup.
 - Preserve the original Common Paper attribution, source reference, and license statement.
 - Label the output as a draft and direct users to human/legal review.
@@ -117,9 +120,10 @@ Use semantic HTML elements, explicit labels, fieldset/legend groupings for party
 
 The implementation must be verified at three levels:
 
-1. **Unit/component checks** — defaults, validation, agreement interpolation, and filename normalization.
+1. **Unit/component checks** — defaults, validation, agreement interpolation, filename normalization, and export content generation.
 2. **Static/project checks** — ESLint, TypeScript validation, and `next build`.
-3. **Browser smoke test** — load the page, enter representative party and agreement details, confirm the preview contains those values, and trigger the download action.
+3. **Browser smoke test** — load the page, enter representative party and agreement details, confirm the preview contains those values, and trigger each download action.
+4. **Artifact checks** — reopen generated DOCX/PDF files, confirm expected text is present, render them to images, and inspect every page for clipping, overlap, missing glyphs, or unreadable layout.
 
 The success criteria are:
 
@@ -127,7 +131,8 @@ The success criteria are:
 - The initial page explains the Mutual NDA workflow and shows the form.
 - A completed form produces a preview containing the entered values in the expected agreement fields.
 - Invalid required input prevents download and explains what must be corrected.
-- A valid form triggers a local Markdown download containing the completed Cover Page, Standard Terms, attribution, and license notice.
+- A valid form triggers local Markdown, DOCX, and PDF downloads containing the completed Cover Page, Standard Terms, attribution, and license notice.
+- The three exported formats contain the same completed agreement content and preserve the required attribution.
 - The application is usable with keyboard navigation and at mobile widths.
 
 ## Future extension points
