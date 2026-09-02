@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Mutual Non-Disclosure Agreement Cover Page",
+    "description": "Cover page for the Common Paper Mutual Non-Disclosure Agreement.",
+    "filename": "mutual-nda-coverpage.md",
+    "source": "https://github.com/CommonPaper/Mutual-NDA/blob/2a3068b6c0ab6015c440f541d5b215bc3ac2f4cb/Mutual-NDA-coverpage.md",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "Mutual Non-Disclosure Agreement",
+    "description": "Common Paper standard Mutual Non-Disclosure Agreement.",
+    "filename": "mutual-nda.md",
+    "source": "https://github.com/CommonPaper/Mutual-NDA/blob/2a3068b6c0ab6015c440f541d5b215bc3ac2f4cb/Mutual-NDA.md",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "Cloud Service Agreement",
+    "description": "Common Paper standard Cloud Service Agreement.",
+    "filename": "cloud-service-agreement.md",
+    "source": "https://github.com/CommonPaper/CSA/blob/4afc1f9d9ebad949a67a9585ed527e19f482492b/CSA.md",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "Design Partner Agreement",
+    "description": "Common Paper standard Design Partner Agreement.",
+    "filename": "design-partner-agreement.md",
+    "source": "https://github.com/CommonPaper/Design-Partner-Agreement/blob/7e81fece7847ecf3e792806fc206960f16daa8cc/design-partner-agreement.md",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "Service Level Agreement",
+    "description": "Common Paper Service Level Agreement.",
+    "filename": "service-level-agreement.md",
+    "source": "https://github.com/CommonPaper/SLA/blob/5b0e6336f058a66c4976d70ecabf1f5fb9ef3af4/sla.md",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "Professional Services Agreement",
+    "description": "Common Paper standard Professional Services Agreement.",
+    "filename": "professional-services-agreement.md",
+    "source": "https://github.com/CommonPaper/PSA/blob/3fb650a72d229f6d6e6d64abebae5e83c6699535/psa.md",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "Data Processing Agreement",
+    "description": "Common Paper Data Processing Agreement.",
+    "filename": "data-processing-agreement.md",
+    "source": "https://github.com/CommonPaper/DPA/blob/9f1c40d3fb0bb900397a919d058a9c0870f6b0f0/DPA.md",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "Software License Agreement",
+    "description": "Common Paper standard Software License Agreement.",
+    "filename": "software-license-agreement.md",
+    "source": "https://github.com/CommonPaper/Software-License-Agreement/blob/8ea7de38148a8a0c235b7aaf31487028c2e519ca/Software-License-Agreement.md",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "Partnership Agreement",
+    "description": "Common Paper standard Partnership Agreement.",
+    "filename": "partnership-agreement.md",
+    "source": "https://github.com/CommonPaper/Partnership-Agreement/blob/6edeb5a285206893cfd0ac482267db44d90f317c/Partnership-Agreement.md",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "Business Associate Agreement",
+    "description": "Common Paper standard Business Associate Agreement.",
+    "filename": "business-associate-agreement.md",
+    "source": "https://github.com/CommonPaper/BAA/blob/5f1fd992df1d0c78bf69997e1881e4107fa75695/BAA.md",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "Pilot Agreement",
+    "description": "Common Paper standard Pilot Agreement.",
+    "filename": "pilot-agreement.md",
+    "source": "https://github.com/CommonPaper/Pilot-Agreement/blob/5e7cdd4678cd9d6b3178872cce4a01d632f41f14/Pilot-Agreement.md",
+    "license": "CC BY 4.0"
+  },
+  {
+    "name": "AI Addendum",
+    "description": "Common Paper Standard AI Addendum.",
+    "filename": "ai-addendum.md",
+    "source": "https://github.com/CommonPaper/AI-Addendum/blob/6d9b044df73a2477c177e5989fca7f8d27df9387/AI-Addendum.md",
+    "license": "CC BY 4.0"
+  }
+]
