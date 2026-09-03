@@ -6,6 +6,22 @@ export type NdaForm = {
   governingLaw: string; jurisdiction: string; party1: Party; party2: Party;
 };
 
+export type NdaErrors = Partial<Record<"purpose" | "effectiveDate" | "governingLaw" | "jurisdiction" | "party1.name" | "party1.title" | "party1.company" | "party1.address" | "party2.name" | "party2.title" | "party2.company" | "party2.address", string>>;
+
+export function validateNda(data: NdaForm): NdaErrors {
+  const errors: NdaErrors = {};
+  if (!data.purpose.trim()) errors.purpose = "Enter the purpose for sharing confidential information.";
+  if (!data.effectiveDate) errors.effectiveDate = "Choose an effective date.";
+  if (!data.governingLaw.trim()) errors.governingLaw = "Enter the governing law.";
+  if (!data.jurisdiction.trim()) errors.jurisdiction = "Enter the jurisdiction.";
+  for (const who of ["party1", "party2"] as const) {
+    for (const key of ["name", "title", "company", "address"] as const) {
+      if (!data[who][key].trim()) errors[`${who}.${key}` as keyof NdaErrors] = `Enter the party ${key}.`;
+    }
+  }
+  return errors;
+}
+
 export const initialNda: NdaForm = {
   purpose: "Evaluating whether to enter into a business relationship with the other party.",
   effectiveDate: new Date().toISOString().slice(0, 10), mndaTerm: "one-year",
